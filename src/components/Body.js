@@ -50,13 +50,13 @@ const Body = () => {
 
   return Finalrestaurants.length === 0 ? (
     <>
-      <div className="restaurant-list margin-10">
+      <div className="flex flex-wrap">
         {tenList.map((item, index) => {
           return (
             <Shimmer
-              width={250}
-              height={300}
-              className="margin-10"
+              width={200}
+              height={250}
+              className="m-5 p-5 mt-10"
               key={index}
             />
           );
@@ -65,21 +65,24 @@ const Body = () => {
     </>
   ) : (
     <>
-      <div className="search-container">
+      <div className="search-container p-5 bg-pink-50 my-5">
         <input
           type="text"
-          className="search-input"
+          className="focus:bg-green-300 p-2 m-2"
           placeholder="Search"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         ></input>
-        <button className="search-btn" onClick={searchValue}>
+        <button
+          className="p-2 m-2 bg-violet-500 hover:bg-violet-600 text-white rounded-md"
+          onClick={searchValue}
+        >
           {" "}
           Search{" "}
         </button>
       </div>
 
-      <div className="restaurant-list">
+      <div className="flex flex-wrap ">
         {restaurants?.map((restaurant, index) => (
           <Link to={"/restaurant/" + restaurant.data.id}>
             {" "}
