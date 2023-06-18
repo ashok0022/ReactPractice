@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 const HeaderComponent = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="flex justify-between bg-pink-50 shadow-lg">
       <a href="/">
@@ -32,6 +36,7 @@ const HeaderComponent = () => {
         </ul>
       </div>
       <div>
+        <h1 className="mr-4 font-bold">{user.name}</h1>
         <button className="rounded-none bg-indigo-500">Login</button>
       </div>
     </div>

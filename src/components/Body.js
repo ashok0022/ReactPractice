@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RestrauntCard from "./RestrauntCard";
 // import Shimmer from "./Shimmer";
 import { Image, Shimmer } from "react-shimmer";
 import { Link } from "react-router-dom";
 import useOnline from "../utils/useOnline";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -16,6 +17,8 @@ const Body = () => {
   useEffect(() => {
     getRestaurants();
   }, []);
+
+  let userData = useContext(UserContext);
 
   async function getRestaurants() {
     const data = await fetch(
@@ -71,7 +74,10 @@ const Body = () => {
           className="focus:bg-green-300 p-2 m-2"
           placeholder="Search"
           value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
+          onChange={(e) => {
+            setSearchInput(e.target.value);
+            userData.setUser({ ...userData, name: e.target.value });
+          }}
         ></input>
         <button
           className="p-2 m-2 bg-violet-500 hover:bg-violet-600 text-white rounded-md"

@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Body from "./components/Body";
 import HeaderComponent from "./components/Header";
@@ -10,6 +10,7 @@ import Contact from "./components/Contact";
 import RestrauntMenu from "./components/RestrauntMenu";
 import Profile from "./components/Profile";
 import { Shimmer } from "react-shimmer";
+import UserContext from "./utils/UserContext";
 // import Instamart from "./components/Instamart";
 
 //Chunking or bundle chunking
@@ -25,13 +26,17 @@ const Instamart = lazy(() => import("./components/Instamart"));
 // kyuki component ka bundle load hone mai time lagta hai, uske pehele react load karne lagta hai(eror)
 
 const AppLayout = () => {
+  const [user, setUser] = useState({ name: "Rahul" });
+
   return (
     <>
-      <HeaderComponent />
-      <Outlet />
-      {/* //this will render the child components of AppLayout the
+      <UserContext.Provider value={{ user: user, setUser: setUser }}>
+        <HeaderComponent />
+        <Outlet />
+        {/* //this will render the child components of AppLayout the
       content in outlet will be rendered based on the path */}
-      <Footer />
+        <Footer />
+      </UserContext.Provider>
     </>
   );
 };
